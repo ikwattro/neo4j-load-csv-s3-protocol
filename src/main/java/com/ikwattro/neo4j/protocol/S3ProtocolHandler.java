@@ -29,10 +29,8 @@ public class S3ProtocolHandler extends URLStreamHandler {
                 accessKey = credentials[0];
                 secretKey = credentials[1];
 
-                //bucket
                 String bucket = url.getHost().substring(0, url.getHost().indexOf("."));
 
-                //key
                 String key = url.getPath().substring(1);
 
                 AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
@@ -42,8 +40,8 @@ public class S3ProtocolHandler extends URLStreamHandler {
 
                 try {
                     S3Object s3Object = s3Client.getObject(bucket, key);
-                    return new ByteArrayInputStream(s3Object.getObjectContent().readAllBytes());
 
+                    return new ByteArrayInputStream(s3Object.getObjectContent().readAllBytes());
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
